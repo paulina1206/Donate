@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
     <header class="header--main-page">
         <nav class="container container--70">
             <ul class="nav--actions">
-                <li><a href="" class="btn btn--small btn--without-border">Zaloguj</a></li>
-                <li><a href="#" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+                <li><a href="{% url 'login' %}" class="btn btn--small btn--without-border">Zaloguj</a></li>
+                <li><a href="{% url 'register' %}" class="btn btn--small btn--highlighted">Załóż konto</a></li>
             </ul>
 
             <ul>
@@ -72,7 +73,7 @@
             </div>
         </div>
 
-        <a href="#" class="btn btn--large">Załóż konto</a>
+        <a href="{% url 'register' %}" class="btn btn--large">Załóż konto</a>
     </section>
 
     <section id="about-us" class="about-us">
@@ -82,7 +83,7 @@
                 libero optio esse quisquam illo omnis.</p>
             <img src="{% static 'images/signature.svg'%}" class="about-us--text-signature" alt="Signature"/>
         </div>
-        <div class="about-us--image"><img src="images/about-us.jpg" alt="People in circle"/></div>
+        <div class="about-us--image"><img src="{% static 'images/about-us.jpg' %}" alt="People in circle"/></div>
     </section>
 
     <section id="help" class="help">
