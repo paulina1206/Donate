@@ -3,7 +3,7 @@
 
 {% block slogan %}
     <div class="slogan container container--90">
-        <div class="slogan--item">
+        <div class="slogan--item" style="margin: auto">
             <h1>
                 Zacznij pomagać!<br/>
                 Oddaj niechciane rzeczy w zaufane ręce
@@ -16,14 +16,14 @@
     <section id="stats" class="stats">
         <div class="container container--85">
             <div class="stats--item">
-                <em>10</em>
+                <em>{{ sum_quantity.quantity__sum|default_if_none:"0" }}</em>
                 <h3>Oddanych worków</h3>
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius est beatae, quod accusamus illum
                     tempora!</p>
             </div>
 
             <div class="stats--item">
-                <em>5</em>
+                <em>{{ no_institution|default_if_none:"0" }}</em>
                 <h3>Wspartych organizacji</h3>
                 <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam magnam, sint nihil cupiditate
                     quas quam.</p>
