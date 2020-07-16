@@ -19,4 +19,5 @@ from donate_app import views
 
 urlpatterns = [
     path('', views.LandingPage.as_view(), name='landing_page'),
+    path('adddonation/', views.AddDonation.as_view(), name='add_donation'),
 ]

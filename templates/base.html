@@ -10,6 +10,40 @@
 </head>
 <body>
 
+<header class="{{ header_class }}">
+    <nav class="container container--70">
+        <ul class="nav--actions">
+            {% if not user.is_authenticated %}
+                <li><a href="{% url 'login' %}" class="btn btn--small btn--without-border">Zaloguj</a></li>
+                <li><a href="{% url 'register' %}" class="btn btn--small btn--highlighted">Załóż konto</a></li>
+            {% else %}
+                <li class="logged-user">
+                    Witaj {{ user.firstname }}
+                    <ul class="dropdown">
+                        <li><a href="#">Profil</a></li>
+                        <li><a href="#">Moje zbiórki</a></li>
+                        <li><a href="#">Ustawienia</a></li>
+                        <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+                    </ul>
+                </li>
+            {% endif %}
+        </ul>
+
+        <ul>
+            <li><a href="{% url 'landing_page' %}" class="btn btn--without-border active">Start</a></li>
+            <li><a href="{% url 'landing_page' %}#steps" class="btn btn--without-border">O co chodzi?</a></li>
+            <li><a href="{% url 'landing_page' %}#about-us" class="btn btn--without-border">O nas</a></li>
+            <li><a href="{% url 'landing_page' %}#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
+            <li><a href="{% url 'add_donation' %}" class="btn btn--without-border">Przekaż dary</a></li>
+            <li><a href="{% url 'landing_page' %}#contact" class="btn btn--without-border">Kontakt</a></li>
+        </ul>
+    </nav>
+
+    {% block slogan %}
+    {% endblock %}
+
+</header>
+
 
 {% block content %}
 {% endblock %}

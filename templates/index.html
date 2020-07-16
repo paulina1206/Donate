@@ -1,33 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block content %}
-    <header class="header--main-page">
-        <nav class="container container--70">
-            <ul class="nav--actions">
-                <li><a href="{% url 'login' %}" class="btn btn--small btn--without-border">Zaloguj</a></li>
-                <li><a href="{% url 'register' %}" class="btn btn--small btn--highlighted">Załóż konto</a></li>
-            </ul>
 
-            <ul>
-                <li><a href="" class="btn btn--without-border active">Start</a></li>
-                <li><a href="#steps" class="btn btn--without-border">O co chodzi?</a></li>
-                <li><a href="#about-us" class="btn btn--without-border">O nas</a></li>
-                <li><a href="#help" class="btn btn--without-border">Fundacje i organizacje</a></li>
-                <li><a href="form.html" class="btn btn--without-border">Przekaż dary</a></li>
-                <li><a href="#contact" class="btn btn--without-border">Kontakt</a></li>
-            </ul>
-        </nav>
-
-        <div class="slogan container container--90">
-            <div class="slogan--item">
-                <h1>
-                    Zacznij pomagać!<br/>
-                    Oddaj niechciane rzeczy w zaufane ręce
-                </h1>
-            </div>
+{% block slogan %}
+    <div class="slogan container container--90">
+        <div class="slogan--item">
+            <h1>
+                Zacznij pomagać!<br/>
+                Oddaj niechciane rzeczy w zaufane ręce
+            </h1>
         </div>
-    </header>
+    </div>
+{% endblock %}
 
+{% block content %}
     <section id="stats" class="stats">
         <div class="container container--85">
             <div class="stats--item">
@@ -81,7 +66,7 @@
             <h2>O nas</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas vitae animi rem pariatur incidunt
                 libero optio esse quisquam illo omnis.</p>
-            <img src="{% static 'images/signature.svg'%}" class="about-us--text-signature" alt="Signature"/>
+            <img src="{% static 'images/signature.svg' %}" class="about-us--text-signature" alt="Signature"/>
         </div>
         <div class="about-us--image"><img src="{% static 'images/about-us.jpg' %}" alt="People in circle"/></div>
     </section>
