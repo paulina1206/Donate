@@ -18,7 +18,7 @@
                 <li><a href="{% url 'register' %}" class="btn btn--small btn--highlighted">Załóż konto</a></li>
             {% else %}
                 <li class="logged-user">
-                    Witaj {{ user.firstname }}
+                    Witaj {{ user.first_name }}
                     <ul class="dropdown">
                         <li><a href="#">Profil</a></li>
                         <li><a href="#">Moje zbiórki</a></li>
@@ -43,7 +43,6 @@
     {% endblock %}
 
 </header>
-
 
 {% block content %}
 {% endblock %}

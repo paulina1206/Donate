@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('donate_app.urls')),
     path('', include('accounts.urls')),
+    path('', include('django.contrib.auth.urls')),
 ]

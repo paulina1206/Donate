@@ -18,11 +18,9 @@ class LandingPage(View):
         p_fundations = paginator_fundations.get_page(page)
         organizations = Institution.objects.filter(type=2)
         paginator_organizations = Paginator(organizations, 1)
-        page = request.GET.get('page')
         p_organizations = paginator_organizations.get_page(page)
         collections = Institution.objects.filter(type=3)
         paginator_collections = Paginator(collections, 1)
-        page = request.GET.get('page')
         p_collections = paginator_collections.get_page(page) #https://docs.djangoproject.com/en/2.2/topics/pagination/
         return render(request, 'index.html', {"no_institution": number_of_supported_institution,
                                               "sum_quantity": sum_of_donated_quantity,
