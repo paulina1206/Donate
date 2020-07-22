@@ -1,8 +1,9 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import Sum
 from django.shortcuts import render
 from django.views import View
-from donate_app.models import Institution, Donation
+from donate_app.models import Institution, Donation, Category
 
 
 # Create your views here.
@@ -29,6 +30,12 @@ class LandingPage(View):
                                               "collections": p_collections})
 
 
-class AddDonation(View):
+class AddDonation(LoginRequiredMixin, View):
+    login_url = '/login/'
     def get(self, request):
+        categories = Category.objects.all()
+        institutions = Institution.objects.all()
+        return render(request, 'form.html', {'categories': categories, 'institutions': institutions})
+    def post(self, request):
+
         return render(request, 'form.html')

@@ -235,6 +235,116 @@ document.addEventListener("DOMContentLoaded", function() {
       this.$step.parentElement.hidden = this.currentStep >= 6;
 
       // TODO: get data from inputs and show them in summary
+    //  Step 1 - categories
+    let categories = document.querySelectorAll('.step1 .form-group--checkbox');
+    const categories_ids = [];
+    const categories_names = [];
+    for (let el of categories) {
+        if(el.children[0].children[0].checked === true){
+             categories_ids.push(parseInt(el.children[0].children[0].value));
+             categories_names.push(el.children[0].children[2].textContent);
+        }
+      }
+    console.log(categories);
+    console.log(categories_ids);
+    console.log(categories_names);
+
+    //  Step 2 - number of donated bags
+    let bags = document.querySelector('.step2 .form-group--inline');
+    let no_of_bags = parseInt(bags.children[0].children[0].value);
+    console.log(bags);
+    console.log(no_of_bags);
+
+    //  Step 3 - institutions
+    let institutions = document.querySelectorAll('.step3 .form-group--checkbox');
+    const institution_id = [];
+    const institution_name = [];
+    for (let el of institutions) {
+        if(el.children[0].children[0].checked === true){
+             institution_id.push(parseInt(el.children[0].children[0].value));
+             institution_name.push(el.children[0].children[2].children[0].textContent);
+        }
+      }
+    console.log(institutions);
+    console.log(institution_id);
+    console.log(institution_name);
+
+     if (this.currentStep == 3) {
+        let inputs = document.querySelectorAll('.step3 .form-group--checkbox #categories');
+        console.log(inputs)
+        inputs.forEach(input => {
+          input.parentElement.style.display = 'none';
+          let institutions_categories_ids = [];
+          input.value.toString().split(',').forEach(el => {
+          let value = parseInt(el, 10);
+          if(!isNaN(value)){
+            institutions_categories_ids.push(value);
+          }
+        });
+          let bool = true;
+          categories_ids.forEach(id => {
+            if(!institutions_categories_ids.includes(id)){
+              bool = false;
+            }
+          });
+          if(bool){
+          input.parentElement.style.display = 'block';
+          }
+        });
+      }
+
+    //  Step 4 - information of pick up the item by the courier
+    const address = {};
+    const donation_reception = {};
+
+
+    let street = document.querySelector('#address');
+    address['street'] = street.value;
+
+    let city = document.querySelector('#city');
+    address['city'] = city.value;
+
+    let postcode = document.querySelector('#postcode');
+    address['postcode'] = postcode.value;
+
+    let phone = document.querySelector('#phone');
+    address['phone'] = phone.value;
+
+    let date = document.querySelector('#date');
+    donation_reception['date'] = date.value;
+
+    let time = document.querySelector('#time');
+    donation_reception['time'] = time.value;
+
+    let more_info = document.querySelector('#more_info');
+    donation_reception['more_info'] = more_info.value;
+
+    console.log(address);
+    console.log(donation_reception);
+
+    //  Step 5 - summary
+
+    let bag = document.querySelector('.bag');
+    bag.textContent = no_of_bags;
+
+    let category = document.querySelector('.categories');
+    category.textContent = categories_names;
+
+    let organization = document.querySelector('.organization');
+    organization.textContent = institution_name;
+
+    const addressinfo = document.querySelector('.address');
+    addressinfo.children[1].children[0].innerHTML = address['street'];
+    addressinfo.children[1].children[1].innerHTML = address['city'];
+    addressinfo.children[1].children[2].innerHTML = address['postcode'];
+    addressinfo.children[1].children[3].innerHTML = address['phone'];
+    const dateinfo = document.querySelector('.date');
+    dateinfo.children[1].children[0].innerHTML = donation_reception['date'];
+    dateinfo.children[1].children[1].innerHTML = donation_reception['time'];
+    dateinfo.children[1].children[2].innerHTML = donation_reception['more_info'];
+
+
+
     }
 
     /**

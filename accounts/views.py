@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
+from django.contrib.auth.views import LoginView
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import CreateView
 from accounts.form import RegisterForm
@@ -30,4 +32,5 @@ class Register(CreateView):
     form_class = RegisterForm
     template_name = 'registration/register.html'
     success_url = reverse_lazy("login")
+
 
