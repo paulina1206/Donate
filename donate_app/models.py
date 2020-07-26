@@ -22,6 +22,8 @@ class Institution(models.Model):
     type = models.IntegerField(choices=types, default=1)
     categories = models.ManyToManyField(Category)
 
+    def __str__(self):
+        return f'{self.name}'
 
 def quantity_validation(value):
     if value < 0:
@@ -50,3 +52,5 @@ class Donation(models.Model):
     pick_up_comment = models.TextField(null=True, default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, default=None)
 
+    def __str__(self):
+        return f'Dla {self.institution} od {self.user}'

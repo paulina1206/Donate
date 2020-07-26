@@ -22,9 +22,13 @@
                     Witaj {{ user.first_name }}
                     <ul class="dropdown">
                         <li><a href="#">Profil</a></li>
-                        <li><a href="#">Moje zbiórki</a></li>
                         <li><a href="#">Ustawienia</a></li>
                         <li><a href="{% url 'logout' %}">Wyloguj</a></li>
+                        {% if user.is_superuser %}
+                            <li>
+                                <a href="/admin/">Panel administratora</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </li>
             {% endif %}
