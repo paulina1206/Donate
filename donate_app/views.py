@@ -1,7 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+import json
 from django.db.models import Sum
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from donate_app.models import Institution, Donation, Category
 
@@ -36,6 +37,34 @@ class AddDonation(LoginRequiredMixin, View):
         categories = Category.objects.all()
         institutions = Institution.objects.all()
         return render(request, 'form.html', {'categories': categories, 'institutions': institutions})
-    def post(self, request):
 
-        return render(request, 'form.html')
+    def post(self, request):
+        new_donation = json.loads((request.POST.get('add_donation')))
+
+        donation = Donation.objects.create(
+            quantity=int(new_donation['no_of_bags']),
+            institution=Institution.objects.get(id=(int(new_donation['institution_id'][0]))),
+            address=new_donation['address']['street'],
+            phone_number=new_donation['address']['phone'],
+            city=new_donation['address']['city'],
+            zip_code=new_donation['address']['postcode'],
+            pick_up_data=new_donation['donation_reception']['date'],
+            pick_up_time=new_donation['donation_reception']['time'],
+            pick_up_comment=new_donation['donation_reception']['more_info'],
+            user=request.user
+        )
+
+        donation.save()
+
+        for cat in new_donation['categories_ids']:
+            category = Category.objects.get(id=cat)
+            donation.categories.add(category)
+
+        donation.save()
+        return redirect('/donationconfirm/')
+
+
+
+class DonationConfirmation(View):
+    def get(self, request):
+        return render(request, 'form-confirmation.html')

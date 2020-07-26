@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block slogan %}
 
     <div class="slogan container container--90">
@@ -53,7 +54,7 @@
         <div class="form--steps-container">
             <div class="form--steps-counter">Krok <span>1</span>/5</div>
 
-            <form action="form-confirmation.html" method="post">
+            <form action="" method="post" id="form">
                 {% csrf_token %}
                 <!-- STEP 1: class .active is switching steps -->
                 <div data-step="1" class="step1 active">
@@ -181,8 +182,7 @@
                             <ul>
                                 <li>
                                     <span class="icon icon-bag"></span>
-                                    <span class="summary--text"><span class="bag"></span> worki - <span
-                                            class="categories"> </span>
+                                    <span class="summary--text"><span class="bag"></span> worki - <span class="categories"> </span></span>
                                 </li>
 
                                 <li>
