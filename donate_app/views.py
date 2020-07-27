@@ -65,6 +65,15 @@ class AddDonation(LoginRequiredMixin, View):
 
 
 
-class DonationConfirmation(View):
+class DonationConfirmation(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'form-confirmation.html')
+
+class Profil(LoginRequiredMixin, View):
+    def get(self, request):
+        user = request.user
+        donations = Donation.objects.filter(user=user)
+        number_of_donations = Donation.objects.filter(user=user).count()
+        sum_of_donated_quantity = Donation.objects.filter(user=user).aggregate(Sum('quantity'))
+
+        return render(request, 'profil.html', {'donations': donations, 'number_of_donations': number_of_donations, 'sum_of_donated_quantity': sum_of_donated_quantity})

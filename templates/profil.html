@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block slogan %}
+    <div class="slogan container container--90">
+        <div class="slogan--item" style="margin: auto">
+            <h1>
+                Witaj {{ user.first_name }} {{ user.last_name }}! <br>
+            Twój email: {{ user.email }}
+            </h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <section id="stats" class="stats" style="margin: auto">
+        <div class="container container--85">
+            <div class="stats--item" style="margin: auto">
+                <em>{{ sum_of_donated_quantity.quantity__sum|default_if_none:"0" }}</em>
+                <h3>Oddałeś/aś worków</h3>
+                <p>Dziękujemy, że oddajesz rzeczy potrzebującym!</p>
+            </div>
+
+            <div class="stats--item" style="margin: auto">
+                <em>{{ number_of_donations|default_if_none:"0" }}</em>
+                <h3>Liczba Twoich donacji</h3>
+                <p>Dziękujemy, że wspierasz wybrane instytucje.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="steps" class="steps">
+        <h2>Wystarczą 4 proste kroki</h2>
+
+        <div class="steps--container">
+            <div class="steps--item">
+                <span class="icon icon--hands"></span>
+                <h3>Wybierz rzeczy</h3>
+                <p>ubrania, zabawki, sprzęt i inne</p>
+            </div>
+            <div class="steps--item">
+                <span class="icon icon--arrow"></span>
+                <h3>Spakuj je</h3>
+                <p>skorzystaj z worków na śmieci</p>
+            </div>
+            <div class="steps--item">
+                <span class="icon icon--glasses"></span>
+                <h3>Zdecyduj komu chcesz pomóc</h3>
+                <p>wybierz zaufane miejsce</p>
+            </div>
+            <div class="steps--item">
+                <span class="icon icon--courier"></span>
+                <h3>Zamów kuriera</h3>
+                <p>kurier przyjedzie w dogodnym terminie</p>
+            </div>
+        </div>
+
+            <a href="{% url 'add_donation' %}" class="btn btn--large">Wesprzyj!</a>
+
+    </section>
+
+{% endblock %}
