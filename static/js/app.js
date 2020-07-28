@@ -352,11 +352,11 @@ document.addEventListener("DOMContentLoaded", function () {
             dateinfo.children[1].children[2].innerHTML = donation_reception['more_info'];
 
             var formedObject = new Object();
-                formedObject.categories_ids = categories_ids;
-                formedObject.no_of_bags = no_of_bags;
-                formedObject.institution_id = institution_id;
-                formedObject.address = address;
-                formedObject.donation_reception = donation_reception;
+            formedObject.categories_ids = categories_ids;
+            formedObject.no_of_bags = no_of_bags;
+            formedObject.institution_id = institution_id;
+            formedObject.address = address;
+            formedObject.donation_reception = donation_reception;
 
             var stringFormedObject = JSON.stringify(formedObject)
             this.stringFormedObj = stringFormedObject
@@ -374,7 +374,7 @@ document.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
             var el = document.getElementsByName("csrfmiddlewaretoken");
             var csrf_value = el[0].getAttribute("value");
-            console.log('csrf: '+csrf_value);
+            console.log('csrf: ' + csrf_value);
             this.currentStep++;
             this.updateForm();
 
@@ -388,8 +388,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
                 success: function () {
                     window.location.assign("/donationconfirm/");
-                }
+                },
+                error: function(data) {
+                    alert("Błędne lub niekompletne dane");
+                    window.location.reload();
 
+                 }
             });
         }
     }

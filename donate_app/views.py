@@ -3,6 +3,7 @@ from django.core.paginator import Paginator
 import json
 from django.db.models import Sum
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views import View
 from donate_app.models import Institution, Donation, Category
 
@@ -72,8 +73,16 @@ class DonationConfirmation(LoginRequiredMixin, View):
 class Profil(LoginRequiredMixin, View):
     def get(self, request):
         user = request.user
-        donations = Donation.objects.filter(user=user)
+        donations = Donation.objects.filter(user=user).filter(is_taken=False)
+        archive_donations = Donation.objects.filter(user=request.user).filter(is_taken=True)
         number_of_donations = Donation.objects.filter(user=user).count()
         sum_of_donated_quantity = Donation.objects.filter(user=user).aggregate(Sum('quantity'))
 
-        return render(request, 'profil.html', {'donations': donations, 'number_of_donations': number_of_donations, 'sum_of_donated_quantity': sum_of_donated_quantity})
+        return render(request, 'profil.html', {'donations': donations, 'archive_donations': archive_donations, 'number_of_donations': number_of_donations, 'sum_of_donated_quantity': sum_of_donated_quantity})
+
+    def post(self, request):
+        donation_id = request.POST.get("donation_id")
+        donation = Donation.objects.get(id=donation_id)
+        donation.is_taken = True
+        donation.save()
+        return redirect(reverse('profil'))

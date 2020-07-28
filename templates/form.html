@@ -111,7 +111,8 @@
                 </span>
                             </label>
                             <input type="hidden" id="categories" name="categories" value=
-                                    "{% for category in institution.categories.iterator %}{{ category.id }}, {% endfor %}"/>
+                                    "
+                                            {% for category in institution.categories.iterator %}{{ category.id }}, {% endfor %}"/>
                         </div>
                     {% endfor %}
                     <div class="form-group form-group--buttons">
@@ -182,7 +183,8 @@
                             <ul>
                                 <li>
                                     <span class="icon icon-bag"></span>
-                                    <span class="summary--text"><span class="bag"></span> worki - <span class="categories"> </span></span>
+                                    <span class="summary--text"><span class="bag"></span> worki - <span
+                                            class="categories"> </span></span>
                                 </li>
 
                                 <li>
