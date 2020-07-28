@@ -6,7 +6,7 @@
         <div class="slogan--item" style="margin: auto">
             <h1>
                 Witaj {{ user.first_name }} {{ user.last_name }}! <br>
-            Twój email: {{ user.email }}
+                Twój email: {{ user.email }}
             </h1>
         </div>
     </div>
@@ -56,8 +56,41 @@
             </div>
         </div>
 
-            <a href="{% url 'add_donation' %}" class="btn btn--large">Wesprzyj!</a>
+        <a href="{% url 'add_donation' %}" class="btn btn--large">Wesprzyj!</a>
+
+
+        <div class="slogan--item" style="text-align: left">
+            <h1>
+                Twoje donacje:
+            </h1>
+        </div>
+
+        {% if donations %}
+            <table>
+                <tr>
+                    <th>Ilość worków:</th>
+                    <th>Dla:</th>
+                    <th>Kategorie:</th>
+                    <th>Data odbioru:</th>
+                </tr>
+
+                {% for donation in donations %}
+                    <tr>
+                        <td>{{ donation.quantity }}</td>
+                        <td>{{ donation.institution }}</td>
+                        {% for category in donation.categories.all %}
+                            <td>{{ category }}</td>
+                        {% endfor %}
+                        <td>{{ donation.pick_up_data }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+        {% else %}
+            <h2>Nie wsparłeś jeszcze żadnej instytucji</h2>
+        {% endif %}
 
     </section>
+    <hr>
 
 {% endblock %}

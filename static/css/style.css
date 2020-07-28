@@ -59,6 +59,33 @@ hr {
   /* 2 */
 }
 
+
+table {
+  width: 100%;
+  border: 2px solid #948473;
+  border-collapse: collapse;
+  background-color: #FFE3C6;
+
+
+}
+
+
+th, td {
+  padding: 15px;
+  text-align: left;
+  font-size: 12px;
+  border: 1px solid #948473;
+  border-collapse: collapse;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+
+ th {
+  background-color: #f3ea79;
+   font-size: 14px;
+  font-weight: bold;
+
+}
+
 /**
  * 1. Correct the inheritance and scaling of font size in all browsers.
  * 2. Correct the odd `em` font sizing in all browsers.
