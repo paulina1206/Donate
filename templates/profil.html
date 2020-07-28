@@ -80,23 +80,27 @@
                         <td>{{ donation_active.quantity }}</td>
                         <td>{{ donation_active.institution }}</td>
                         {% for category in donation_active.categories.all %}
-                            <td>{{ category }}, </td>
+                            <td>{{ category }},</td>
                         {% endfor %}
                         <td>{{ donation_active.pick_up_data }}</td>
-                    <td><form method="post" action="">
-                    {% csrf_token %}<input name="donation_id" type="hidden" value="{{ donation_active.id }}">
-                    <input type="submit" class="btn--small btn-success" value="Potwierdź odbiór" style="margin: auto; display: flex"></form></td>
+                        <td>
+                            <form method="post" action="">
+                                {% csrf_token %}<input name="donation_id" type="hidden"
+                                                       value="{{ donation_active.id }}">
+                                <input type="submit" class="btn--small btn-success" value="Potwierdź odbiór"
+                                       style="margin: auto; display: flex"></form>
+                        </td>
                     </tr>
                 {% endfor %}
-            {% for donation in archive_donations|dictsort:'pick_up_data' %}
+                {% for donation in archive_donations|dictsort:'pick_up_data' %}
                     <tr>
                         <td>{{ donation.quantity }}</td>
                         <td>{{ donation.institution }}</td>
                         {% for category in donation.categories.all %}
-                            <td>{{ category }}, </td>
+                            <td>{{ category }},</td>
                         {% endfor %}
                         <td>{{ donation.pick_up_data }}</td>
-                    <td>Zabrana</td>
+                        <td>Zabrana</td>
                     </tr>
                 {% endfor %}
             </table>

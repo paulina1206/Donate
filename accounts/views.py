@@ -7,6 +7,7 @@ from django.views import View
 from django.views.generic import CreateView
 from accounts.form import RegisterForm
 
+
 # Create your views here.
 
 
@@ -27,10 +28,7 @@ from accounts.form import RegisterForm
 #             return redirect('/login/')
 
 
-
 class Register(CreateView):
     form_class = RegisterForm
     template_name = 'registration/register.html'
     success_url = reverse_lazy("login")
-
-

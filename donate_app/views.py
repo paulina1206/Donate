@@ -13,8 +13,9 @@ from donate_app.models import Institution, Donation, Category
 
 class LandingPage(View):
     def get(self, request):
-        number_of_supported_institution = Institution.objects.all().count() #czy to ma być liczba instytucji, czy ilość wszystkich wsparć
-        sum_of_donated_quantity = Donation.objects.aggregate(Sum('quantity')) #https://docs.djangoproject.com/en/3.0/topics/db/aggregation/
+        number_of_supported_institution = Institution.objects.all().count()  # czy to ma być liczba instytucji, czy ilość wszystkich wsparć
+        sum_of_donated_quantity = Donation.objects.aggregate(
+            Sum('quantity'))  # https://docs.djangoproject.com/en/3.0/topics/db/aggregation/
         fundations = Institution.objects.filter(type=1)
         paginator_fundations = Paginator(fundations, 1)
         page = request.GET.get('page')
@@ -24,7 +25,7 @@ class LandingPage(View):
         p_organizations = paginator_organizations.get_page(page)
         collections = Institution.objects.filter(type=3)
         paginator_collections = Paginator(collections, 1)
-        p_collections = paginator_collections.get_page(page) #https://docs.djangoproject.com/en/2.2/topics/pagination/
+        p_collections = paginator_collections.get_page(page)  # https://docs.djangoproject.com/en/2.2/topics/pagination/
         return render(request, 'index.html', {"no_institution": number_of_supported_institution,
                                               "sum_quantity": sum_of_donated_quantity,
                                               "fundations": p_fundations,
@@ -34,6 +35,7 @@ class LandingPage(View):
 
 class AddDonation(LoginRequiredMixin, View):
     login_url = '/login/'
+
     def get(self, request):
         categories = Category.objects.all()
         institutions = Institution.objects.all()
@@ -65,10 +67,10 @@ class AddDonation(LoginRequiredMixin, View):
         return redirect('/donationconfirm/')
 
 
-
 class DonationConfirmation(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'form-confirmation.html')
+
 
 class Profil(LoginRequiredMixin, View):
     def get(self, request):
@@ -78,7 +80,9 @@ class Profil(LoginRequiredMixin, View):
         number_of_donations = Donation.objects.filter(user=user).count()
         sum_of_donated_quantity = Donation.objects.filter(user=user).aggregate(Sum('quantity'))
 
-        return render(request, 'profil.html', {'donations': donations, 'archive_donations': archive_donations, 'number_of_donations': number_of_donations, 'sum_of_donated_quantity': sum_of_donated_quantity})
+        return render(request, 'profil.html', {'donations': donations, 'archive_donations': archive_donations,
+                                               'number_of_donations': number_of_donations,
+                                               'sum_of_donated_quantity': sum_of_donated_quantity})
 
     def post(self, request):
         donation_id = request.POST.get("donation_id")

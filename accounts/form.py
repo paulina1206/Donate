@@ -12,7 +12,6 @@ class RegisterForm(UserCreationForm):
         model = User
         fields = ("email", "first_name", "last_name")
 
-
     error_messages = {
         'email_exist': ('User already exists'),
     }

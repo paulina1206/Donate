@@ -112,6 +112,7 @@
                             </label>
                             <input type="hidden" id="categories" name="categories" value=
                                     "
+
                                             {% for category in institution.categories.iterator %}{{ category.id }}, {% endfor %}"/>
                         </div>
                     {% endfor %}
