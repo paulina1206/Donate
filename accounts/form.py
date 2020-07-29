@@ -35,3 +35,54 @@ class RegisterForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class DataChangeForm(forms.Form):
+    error_messages = {
+        'email_inuse': ("This e-mail address cannot be used. Please select a different e-mail address."),
+        'password_incorrect': ("Incorrect password."),
+    }
+
+    new_first_name = forms.CharField(label='Name')
+    new_last_name = forms.CharField(label='Surname')
+    new_email = forms.EmailField(
+        label=("New E-mail Address"),
+        max_length=254,
+    )
+    current_password = forms.CharField(
+        label=("Current Password"),
+        widget=forms.PasswordInput,
+        required=True
+    )
+
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super(DataChangeForm, self).__init__(*args, **kwargs)
+
+    def clean_current_password(self):
+        """
+        Validates that the password field is correct.
+        """
+        current_password = self.cleaned_data["current_password"]
+        if not self.user.check_password(current_password):
+            raise forms.ValidationError(self.error_messages['password_incorrect'], code='password_incorrect',)
+        return current_password
+
+    def clean_new_email1(self):
+        """
+        Prevents an e-mail address that is already registered from being registered by a different user.
+        """
+        email = self.cleaned_data.get('new_email')
+        if User.objects.filter(email=email).count() > 0:
+            raise forms.ValidationError(self.error_messages['email_inuse'], code='email_inuse',)
+        return email
+
+    def save(self, commit=True):
+        self.user.email = self.cleaned_data['new_email']
+        self.user.username = self.cleaned_data["new_email"]
+        self.user.first_name = self.cleaned_data["new_first_name"]
+        self.user.last_name = self.cleaned_data["new_last_name"]
+        if commit:
+            self.user.save()
+        return self.user

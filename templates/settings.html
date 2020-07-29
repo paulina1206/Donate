@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <section class="login-page">
+        <h2>Ustawienia</h2>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="form-group">
+                <div style="padding-bottom: 10px"><label style="font-size: 18px">Zmień imię:</label></div>
+                <input type="text" name="{{ form.new_first_name.name }}" value="{{ user.first_name }}"/>
+            </div>
+            <div class="form-group">
+                 <div style="padding-bottom: 10px"><label style="font-size: 18px">Zmień nazwisko:</label></div>
+                <input type="text" name="{{ form.new_last_name.name }}" value="{{ user.last_name }}"/>
+            </div>
+            <div class="form-group">
+                 <div style="padding-bottom: 10px"><label style="font-size: 18px">Zmień email:</label></div>
+                <input type="email" name="{{ form.new_email.name }}" value="{{ user.email }}"/>
+                {% if form.email.errors %}
+                    <span class="error">{{ form.email.errors.as_text }}</span>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                 <div style="padding-bottom: 10px"><label style="font-size: 18px">Potwierdź zmianę danych hasłem:</label></div>
+                <input type="password" name="{{ form.current_password.name }}"/>
+                {% if form.current_password.errors %}
+                    <span class="error">{{ form.current_password.errors.as_text }}</span>
+                {% endif %}
+            </div>
+
+            <div class="form-group form-group--buttons">
+                <button class="btn" type="submit">Edytuj dane</button>
+                <a href="{% url 'password_change' %}" class="btn btn--without-border">Zmień hasło</a>
+            </div>
+
+        </form>
+    </section>
+
+{% endblock %}

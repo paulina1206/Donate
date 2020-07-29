@@ -19,5 +19,7 @@ from accounts import views
 
 urlpatterns = [
     path("register/", views.Register.as_view(), name='register'),
+    path("settings/", views.Settings.as_view(), name='settings'),
+    path("password_change/", views.PasswordChangeView.as_view(), name='password_change'),
 
 ]

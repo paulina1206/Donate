@@ -1,11 +1,12 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import View
 from django.views.generic import CreateView
-from accounts.form import RegisterForm
+from accounts.form import RegisterForm, DataChangeForm
 
 
 # Create your views here.
@@ -32,3 +33,18 @@ class Register(CreateView):
     form_class = RegisterForm
     template_name = 'registration/register.html'
     success_url = reverse_lazy("login")
+
+
+class Settings(LoginRequiredMixin, View):
+    def get(self, request):
+        form = DataChangeForm(user=request.user)
+        return render(request, 'settings.html', {'form': form})
+    def post(self, request):
+        form = DataChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('profil')
+        return render(request, 'settings.html', {'form': form})
+
+class PasswordChangeView(PasswordChangeView):
+    success_url = reverse_lazy('profil')
